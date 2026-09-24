@@ -84,4 +84,23 @@
   border-color: rgba(255, 255, 255, 1);
 }
 
+/* Custom Application Theme Scrollbar Utility */
+.custom-theme-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-theme-scrollbar::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.6);
+  border-radius: 9999px;
+}
+
+.custom-theme-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(33, 124, 112, 0.35);
+  border-radius: 9999px;
+}
+
+.custom-theme-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(33, 124, 112, 0.7);
+}
+
 

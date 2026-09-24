@@ -4,17 +4,17 @@ import { Card } from '../../common/Card';
 import { Badge } from '../../common/Badge';
 import { Button } from '../../common/Button';
 import { Modal } from '../../common/Modal';
-import { Drawer } from '../../common/Drawer';
 import { IAQGauge } from '../../visualizers/IAQGauge';
-import { MapPin, Pencil, Plus, Search, Radio, Sliders } from 'lucide-react';
+import { MapPin, Pencil, Plus, Search } from 'lucide-react';
 import { Room } from '../../../types/room.types';
+import { RoomDetailPage } from './RoomDetailPage';
 
 export const RoomsPage: React.FC = () => {
   const { rooms, addRoom, editRoom } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingRoom, setEditingRoom] = useState<Room | null>(null);
-  const [selectedRoomDrawer, setSelectedRoomDrawer] = useState<Room | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
 
   // Form State
   const [newRoomName, setNewRoomName] = useState('');
@@ -49,6 +49,16 @@ export const RoomsPage: React.FC = () => {
       setEditingRoom(null);
     }
   };
+
+  // If a room is selected, render the dedicated RoomDetailPage view
+  if (selectedRoom) {
+    return (
+      <RoomDetailPage
+        room={selectedRoom}
+        onBack={() => setSelectedRoom(null)}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -97,14 +107,15 @@ export const RoomsPage: React.FC = () => {
           const lightTrailGradient = isRedGauge
             ? 'from-transparent via-[#B91C1C] via-[#EF4444] via-[#FCA5A5] via-[#EF4444] via-[#B91C1C] to-transparent'
             : isYellowGauge
-            ? 'from-transparent via-[#D97706] via-[#F59E0B] via-[#FBBF24] via-[#F59E0B] via-[#D97706] to-transparent'
-            : 'from-transparent via-[#047857] via-[#10B981] via-[#00E676] via-[#10B981] via-[#047857] to-transparent';
+              ? 'from-transparent via-[#D97706] via-[#F59E0B] via-[#FBBF24] via-[#F59E0B] via-[#D97706] to-transparent'
+              : 'from-transparent via-[#047857] via-[#10B981] via-[#00E676] via-[#10B981] via-[#047857] to-transparent';
 
           return (
             <Card
               key={room.id}
               hoverable
-              className="relative overflow-hidden p-5 bg-white/75 backdrop-blur-md border border-white/90 shadow-sm hover:shadow-xl hover:bg-white/90 hover:scale-[1.015] hover:-translate-y-1 rounded-3xl transition-all duration-300 group"
+              onClick={() => setSelectedRoom(room)}
+              className="relative overflow-hidden p-5 bg-white/75 backdrop-blur-md border border-white/90 shadow-sm hover:shadow-xl hover:bg-white/90 hover:scale-[1.015] hover:-translate-y-1 rounded-3xl transition-all duration-300 cursor-pointer group"
             >
               {/* Header: Name, Code, Edit Icon, AQI Gauge */}
               <div className="flex items-start justify-between">
@@ -112,15 +123,16 @@ export const RoomsPage: React.FC = () => {
                   <MapPin className="w-4 h-4 text-rose-500 shrink-0 mt-1" />
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3
-                        onClick={() => setSelectedRoomDrawer(room)}
-                        className="text-base font-bold text-slate-900 hover:text-[#217C70] cursor-pointer"
-                      >
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-[#217C70] transition-colors">
                         {room.name}
                       </h3>
                       <button
-                        onClick={() => setEditingRoom(room)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditingRoom(room);
+                        }}
                         className="p-1 text-slate-400 hover:text-slate-600 rounded-md hover:bg-slate-100"
+                        title="Edit room"
                       >
                         <Pencil className="w-3.5 h-3.5" />
                       </button>
@@ -129,7 +141,7 @@ export const RoomsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div onClick={() => setSelectedRoomDrawer(room)} className="cursor-pointer">
+                <div>
                   <IAQGauge score={room.aqiScore} size={48} />
                 </div>
               </div>
@@ -187,7 +199,7 @@ export const RoomsPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Bottom Light Trail matching Gauge Color (2px height, 80% opacity, tapered ends, no shadow) */}
+              {/* Bottom Light Trail matching Gauge Color */}
               <div
                 className={`absolute inset-x-0 bottom-0 h-[2px] z-10 pointer-events-none opacity-80 bg-gradient-to-r ${lightTrailGradient}`}
               />
@@ -278,50 +290,6 @@ export const RoomsPage: React.FC = () => {
             </div>
           </form>
         </Modal>
-      )}
-
-      {/* Room Detail Drawer */}
-      {selectedRoomDrawer && (
-        <Drawer
-          isOpen={!!selectedRoomDrawer}
-          onClose={() => setSelectedRoomDrawer(null)}
-          title={selectedRoomDrawer.name}
-          subtitle={`Telemetry details for ${selectedRoomDrawer.code}`}
-        >
-          <div className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-emerald-50/60 rounded-2xl border border-emerald-100">
-              <div>
-                <span className="text-xs text-emerald-800 font-semibold uppercase">Overall Score</span>
-                <div className="text-3xl font-extrabold text-emerald-700 mt-1">
-                  {selectedRoomDrawer.aqiScore} (Good)
-                </div>
-              </div>
-              <IAQGauge score={selectedRoomDrawer.aqiScore} size={60} />
-            </div>
-
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Live Sensor Parameters</h4>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-slate-50 rounded-xl">
-                  <span className="text-xs text-slate-400">Temperature</span>
-                  <div className="text-base font-bold text-slate-800">{selectedRoomDrawer.sensors.temp} °C</div>
-                </div>
-                <div className="p-3 bg-slate-50 rounded-xl">
-                  <span className="text-xs text-slate-400">Relative Humidity</span>
-                  <div className="text-base font-bold text-slate-800">{selectedRoomDrawer.sensors.humidity} %</div>
-                </div>
-                <div className="p-3 bg-slate-50 rounded-xl">
-                  <span className="text-xs text-slate-400">PM2.5 Particles</span>
-                  <div className="text-base font-bold text-slate-800">{selectedRoomDrawer.sensors.pm25} µg/m³</div>
-                </div>
-                <div className="p-3 bg-slate-50 rounded-xl">
-                  <span className="text-xs text-slate-400">TVOC Level</span>
-                  <div className="text-base font-bold text-slate-800">{selectedRoomDrawer.sensors.tvoc}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Drawer>
       )}
     </div>
   );

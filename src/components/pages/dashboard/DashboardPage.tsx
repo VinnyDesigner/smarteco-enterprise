@@ -91,20 +91,20 @@ export const DashboardPage: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300 select-none pb-8">
       {/* Top Header Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
-        <div>
-          <span className="text-sm font-bold text-slate-400 tracking-wider block mb-1">
-            Welcome Pujitha
-          </span>
+      <div className="mb-8 sm:mb-10">
+        <span className="text-sm font-bold text-slate-400 tracking-wider block mb-1">
+          Welcome Pujitha
+        </span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             Air Quality Dashboard
           </h1>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <div className="px-4 py-2 rounded-2xl glass-card flex items-center gap-2 text-xs font-semibold text-slate-700">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>SmartEco Live Connected</span>
+          <div className="flex items-center gap-3">
+            <div className="px-4 py-2 rounded-2xl glass-card flex items-center gap-2 text-xs font-semibold text-slate-700">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>SmartEco Live Connected</span>
+            </div>
           </div>
         </div>
       </div>
@@ -223,124 +223,88 @@ export const DashboardPage: React.FC = () => {
         {/* RIGHT COLUMN: 4 METRIC CARDS HORIZONTALLY IN A SINGLE ROW + TOP ROOMS & RECENT ALERTS BELOW */}
         <div className="space-y-6">
 
-          {/* 1. TOP ROW: 4 METRIC CARDS HORIZONTALLY IN A SINGLE ROW (WITH HOVER POP-UP ANIMATION) */}
+          {/* 1. TOP ROW: 4 METRIC CARDS HORIZONTALLY IN A SINGLE ROW */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 
             {/* Card 1: Air Quality Score */}
-            <div
-              className="relative overflow-hidden p-5 rounded-3xl border border-white/90 shadow-md flex flex-col justify-between group bg-white/50 min-h-[140px] hover:scale-105 hover:shadow-xl hover:bg-white/70 hover:border-white transition-all duration-300 cursor-pointer"
-            >
-              {/* Glass background image with wave aesthetic */}
-              <img
-                src={CardBg}
-                alt="Metric Card Background"
-                className="absolute inset-0 w-full h-full object-cover object-bottom z-0 opacity-70 group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-white/30 backdrop-blur-xs z-0 pointer-events-none" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-100/90 text-emerald-700 flex items-center justify-center shadow-2xs group-hover:scale-110 transition-transform border border-emerald-200/50">
+            <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-[#D9F4F1] via-[#F4FCFC] to-white border border-white/90 shadow-md shadow-teal-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[130px]">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-xs sm:text-[13px] font-extrabold text-slate-700 tracking-tight leading-snug">
+                  Air Quality Score
+                </span>
+                <div className="w-11 h-11 rounded-full bg-[#D1F4EA] text-[#059669] flex items-center justify-center shrink-0 border border-emerald-200/50 shadow-2xs">
                   <Leaf className="w-5 h-5 fill-current" />
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100/90 text-emerald-800 border border-emerald-200">
-                  Good
-                </span>
               </div>
 
-              <div className="relative z-10 mt-4">
-                <span className="text-xs font-bold text-slate-600 block">Air Quality Score</span>
-                <div className="text-3xl font-black text-slate-900 tracking-tight mt-0.5">
+              <div className="mt-2">
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                   96
                 </div>
-                <span className="text-[11px] text-emerald-700 font-semibold block mt-0.5">
+                <span className="text-[11px] sm:text-xs text-[#059669] font-normal block mt-0.5">
                   Good overall status
                 </span>
               </div>
             </div>
 
             {/* Card 2: Open Alerts */}
-            <div
-              className="relative overflow-hidden p-5 rounded-3xl border border-white/90 shadow-md flex flex-col justify-between group bg-white/50 min-h-[140px] hover:scale-105 hover:shadow-xl hover:bg-white/70 hover:border-white transition-all duration-300 cursor-pointer"
-            >
-              <img
-                src={CardBg}
-                alt="Metric Card Background"
-                className="absolute inset-0 w-full h-full object-cover object-bottom z-0 opacity-70 group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-white/30 backdrop-blur-xs z-0 pointer-events-none" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-rose-100/90 text-rose-600 flex items-center justify-center shadow-2xs group-hover:scale-110 transition-transform border border-rose-200/50">
+            <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-[#D9F4F1] via-[#F4FCFC] to-white border border-white/90 shadow-md shadow-teal-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[130px]">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-xs sm:text-[13px] font-extrabold text-slate-700 tracking-tight leading-snug">
+                  Open Alerts
+                </span>
+                <div className="w-11 h-11 rounded-full bg-[#FFE4E6] text-[#E11D48] flex items-center justify-center shrink-0 border border-rose-200/50 shadow-2xs">
                   <Bell className="w-5 h-5" />
                 </div>
-                {openAlertsCount > 0 && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
-                )}
               </div>
 
-              <div className="relative z-10 mt-4">
-                <span className="text-xs font-bold text-slate-600 block">Open Alerts</span>
-                <div className="text-3xl font-black text-rose-600 tracking-tight mt-0.5">
+              <div className="mt-2">
+                <div className="text-2xl sm:text-3xl font-black text-[#E11D48] tracking-tight">
                   {openAlertsCount}
                 </div>
-                <span className="text-[11px] text-rose-700/80 font-semibold block mt-0.5">
+                <span className="text-[11px] sm:text-xs text-[#E11D48] font-normal block mt-0.5">
                   0 critical
                 </span>
               </div>
             </div>
 
             {/* Card 3: Rooms Needing Attention */}
-            <div
-              className="relative overflow-hidden p-5 rounded-3xl border border-white/90 shadow-md flex flex-col justify-between group bg-white/50 min-h-[140px] hover:scale-105 hover:shadow-xl hover:bg-white/70 hover:border-white transition-all duration-300 cursor-pointer"
-            >
-              <img
-                src={CardBg}
-                alt="Metric Card Background"
-                className="absolute inset-0 w-full h-full object-cover object-bottom z-0 opacity-70 group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-white/30 backdrop-blur-xs z-0 pointer-events-none" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-amber-100/90 text-amber-600 flex items-center justify-center shadow-2xs group-hover:scale-110 transition-transform border border-amber-200/50">
+            <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-[#D9F4F1] via-[#F4FCFC] to-white border border-white/90 shadow-md shadow-teal-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[130px]">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-xs sm:text-[13px] font-extrabold text-slate-700 tracking-tight leading-snug">
+                  Rooms Needing Attention
+                </span>
+                <div className="w-11 h-11 rounded-full bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 border border-amber-200/50 shadow-2xs">
                   <AlertTriangle className="w-5 h-5" />
                 </div>
               </div>
 
-              <div className="relative z-10 mt-4">
-                <span className="text-xs font-bold text-slate-600 block">Rooms Needing Attention</span>
-                <div className="text-3xl font-black text-amber-600 tracking-tight mt-0.5">
+              <div className="mt-2">
+                <div className="text-2xl sm:text-3xl font-black text-[#D97706] tracking-tight">
                   {roomsNeedingAttention.length}
                 </div>
-                <span className="text-[11px] text-amber-800/80 font-semibold block mt-0.5 truncate">
+                <span className="text-[11px] sm:text-xs text-[#B45309] font-normal block mt-0.5 truncate">
                   alerts, recent detections
                 </span>
               </div>
             </div>
 
             {/* Card 4: Rooms Reporting */}
-            <div
-              className="relative overflow-hidden p-5 rounded-3xl border border-white/90 shadow-md flex flex-col justify-between group bg-white/50 min-h-[140px] hover:scale-105 hover:shadow-xl hover:bg-white/70 hover:border-white transition-all duration-300 cursor-pointer"
-            >
-              <img
-                src={CardBg}
-                alt="Metric Card Background"
-                className="absolute inset-0 w-full h-full object-cover object-bottom z-0 opacity-70 group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-white/30 backdrop-blur-xs z-0 pointer-events-none" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-teal-100/90 text-[#217C70] flex items-center justify-center shadow-2xs group-hover:scale-110 transition-transform border border-teal-200/50">
+            <div className="relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br from-[#D9F4F1] via-[#F4FCFC] to-white border border-white/90 shadow-md shadow-teal-950/5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[130px]">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-xs sm:text-[13px] font-extrabold text-slate-700 tracking-tight leading-snug">
+                  Rooms Reporting
+                </span>
+                <div className="w-11 h-11 rounded-full bg-[#CCFBF1] text-[#0D9488] flex items-center justify-center shrink-0 border border-teal-200/50 shadow-2xs">
                   <Building2 className="w-5 h-5" />
                 </div>
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
               </div>
 
-              <div className="relative z-10 mt-4">
-                <span className="text-xs font-bold text-slate-600 block">Rooms Reporting</span>
-                <div className="text-3xl font-black text-[#217C70] tracking-tight mt-0.5">
+              <div className="mt-2">
+                <div className="text-2xl sm:text-3xl font-black text-[#0D9488] tracking-tight">
                   {reportingRooms.length}
                 </div>
-                <span className="text-[11px] text-teal-800/80 font-semibold block mt-0.5">
+                <span className="text-[11px] sm:text-xs text-[#0D9488] font-normal block mt-0.5">
                   1 total across 1 sites
                 </span>
               </div>
